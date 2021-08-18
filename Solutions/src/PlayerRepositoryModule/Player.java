@@ -10,23 +10,8 @@ public class Player {
 	
 	
 	
-	public Player(String name, String category, int rank) throws InvalidPlayerInformationException {
+	public Player(String name) {
 		this.name = name;
-		
-		if (category.equals("Defender") || category.equals("Mid fielder") || category.equals("Forward") || category.equals("Goal keeper")) {
-			this.category = category;
-		}
-		else {
-			throw new InvalidPlayerInformationException("The specified category could not be found."
-					+ "Please enter one of the following categories: \"Defender\", \"Mid fielder\", \"Forward\" or \"Goal keeper\".");
-		}
-		
-		if (rank >= 1) {
-			this.rank = rank;
-		}
-		else {
-			throw new InvalidPlayerInformationException("Player rank should be greater or equal than 1. Please try again.");
-		}
 	}
 	
 	
@@ -44,12 +29,11 @@ public class Player {
 	}
 	
 	public void setCategory(String category) throws InvalidPlayerInformationException {
-		if (category.equals("Defender") || category.equals("Mid fielder") || category.equals("Forward") || category.equals("Goal keeper")) {
+		if (category.equals("Defender") || category.equals("Midfielder") || category.equals("Forward") || category.equals("Goalkeeper")) {
 			this.category = category;
 		}
 		else {
-			throw new InvalidPlayerInformationException("The specified category could not be found."
-					+ "Please enter one of the following categories: \"Defender\", \"Mid fielder\", \"Forward\" or \"Goal keeper\".");
+			throw new InvalidPlayerInformationException("The specified category could not be found.");
 		}
 	}
 	
@@ -62,7 +46,7 @@ public class Player {
 			this.rank = rank;
 		}
 		else {
-			throw new InvalidPlayerInformationException("Player rank should be greater or equal than 1. Please try again.");
+			throw new InvalidPlayerInformationException("Player rank should be greater or equal than 1.");
 		}
 	}
 	

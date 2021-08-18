@@ -4,60 +4,88 @@ import java.util.Scanner;
 
 import PlayerRepositoryModule.InvalidPlayerInformationException;
 import PlayerRepositoryModule.Player;
+import PlayerRepositoryModule.PlayerAlreadyExistsException;
 import PlayerRepositoryModule.PlayerRepository;
+import PlayerRepositoryModule.TeamNotFormedException;
 
 public class UserInterface {
-	
+
 	private PlayerRepository playerRepository;
 	private Scanner scanner;
-	
-	
-	
+
+
+
 	public UserInterface() {
 		playerRepository = new PlayerRepository();
 		scanner = new Scanner(System.in);
 	}
-	
-	
-	
+
+
+
 	public void launchApplication() {
-		System.out.println("Welcome! Please select the action you want to perform:\n"
-				+ "1. Add Players to repository\n"
-				+ "2. Form team");
-		
-		int option = scanner.nextInt();
-		
-		if (option == 1) {
-			System.out.println("Enter the number of players that you would like to add.");
+		System.out.println("Welcome!");
+
+		int option = -1;
+
+		while (option != 0) {
 			
-			int numberOfPlayers = scanner.nextInt();
-			
-			for (int i = 1; i <= numberOfPlayers; i++) {
-				String name = null;
-				String category = null;
-				int rank = 0;
-				
-				System.out.println("Please enter the player name:");
+			System.out.println("Please select the action you want to perform:\n"
+					+ "1. Add Players to repository\n"
+					+ "2. Form team\n"
+					+ "0. Exit");
 
-				name = scanner.nextLine();
+			option = scanner.nextInt();
 
-				while (category == null) {
+			if (option == 1) {
+				System.out.println("Enter the number of players that you would like to add.");
 
-					System.out.println("Please enter the player category from one of the following:"
-							+ " \"Defender\", \"Mid fielder\", \"Forward\" or \"Goal keeper\".");
+				int numberOfPlayers = scanner.nextInt();
+
+				for (int i = 1; i <= numberOfPlayers; i++) {
+					System.out.println("Please enter the name of player " + i + ": ");
+
+					Player p = new Player(scanner.next());
+
+					while (p.getCategory() == null) {
+						System.out.println("Please enter the category of player " + i + " from one of the following:"
+								+ " \"Defender\", \"Midfielder\", \"Forward\" or \"Goalkeeper\".");
+
+						try {
+							p.setCategory(scanner.next());
+						} catch (InvalidPlayerInformationException e) {
+							System.out.println(e.getMessage());
+						}
+					}
+
+					while (p.getRank() == 0) {
+						System.out.println("Please enter the rank of player " + i + ": ");
+
+						try {
+							p.setRank(scanner.nextInt());
+						} catch (InvalidPlayerInformationException e) {
+							System.out.println(e.getMessage());
+						}
+					}
 
 					try {
-						category = scanner.nextLine();
-					} catch (InvalidPlayerInformationException e) {
-						System.out.println(e.getMessage());
+						playerRepository.addPlayer(p);
+					} catch (PlayerAlreadyExistsException e) {
+						e.getMessage();
 					}
 				}
+			}
 
-				System.out.println("Please enter the player rank (should be greater than or equal to 1):");
+			else if (option == 2) {
+				try {
+					String message = playerRepository.formTeam();
+					System.out.println(message);
+				} catch (TeamNotFormedException e) {
+					System.out.println(e.getMessage());
+				}
+			}
 
-				rank = scanner.nextInt();
-				
-				// The logic above is unfinished and incorrect since I ran out of time. Due to the same reason other methods are unimplemented.
+			else if (option == 0) {
+				break;
 			}
 		}
 	}

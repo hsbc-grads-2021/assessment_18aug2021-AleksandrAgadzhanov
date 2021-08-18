@@ -29,9 +29,9 @@ public class PlayerRepository {
 		
 		switch (category) {
 		case "Defender": numberOfDefenders++; break;
-		case "Mid fielder": numberOfMidFielders++; break;
+		case "Midfielder": numberOfMidFielders++; break;
 		case "Forward": numberOfForwards++; break;
-		case "Goal keeper": numberOfGoalKeepers++; break;
+		case "Goalkeeper": numberOfGoalKeepers++; break;
 		}
 		
 		players.add(p);
@@ -42,10 +42,10 @@ public class PlayerRepository {
 	public String formTeam() throws TeamNotFormedException {
 		if (numberOfDefenders < 4 || numberOfMidFielders < 3 || numberOfForwards < 3 || numberOfGoalKeepers < 1) {
 			throw new TeamNotFormedException("There are not enough players to form a team. Current number of players in each category:\n"
-					+ "Number of Defenders: " + numberOfDefenders + "(4 required)\n"
-							+ "Number of Mid fielders: " + numberOfMidFielders + "(3 required)\n"
-									+ "Number of Forwards: " + numberOfForwards + "(3 required)\n"
-											+ "Number of Goal keepers: " + numberOfGoalKeepers + "(1 required)");
+					+ "Number of Defenders: " + numberOfDefenders + " (4 required)\n"
+							+ "Number of Midfielders: " + numberOfMidFielders + " (3 required)\n"
+									+ "Number of Forwards: " + numberOfForwards + " (3 required)\n"
+											+ "Number of Goalkeepers: " + numberOfGoalKeepers + " (1 required)\n");
 		}
 		else {
 			StringBuilder sb = new StringBuilder("Team formed with 11 players:\n"
@@ -63,7 +63,7 @@ public class PlayerRepository {
 					addedDefenders++;
 					shouldBeAdded = true;
 				}
-				else if (addedMidFielders < 3 && currentPlayer.getCategory().equals("Mid fielder")) {
+				else if (addedMidFielders < 3 && currentPlayer.getCategory().equals("Midfielder")) {
 					addedMidFielders++;
 					shouldBeAdded = true;
 				}
@@ -71,8 +71,8 @@ public class PlayerRepository {
 					addedForwards++;
 					shouldBeAdded = true;
 				}
-				else if (addedDefenders < 1 && currentPlayer.getCategory().equals("Goal keeper")) {
-					addedDefenders++;
+				else if (addedGoalKeepers < 1 && currentPlayer.getCategory().equals("Goalkeeper")) {
+					addedGoalKeepers++;
 					shouldBeAdded = true;
 				}
 				
