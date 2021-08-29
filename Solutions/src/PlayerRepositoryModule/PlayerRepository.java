@@ -6,7 +6,7 @@ public class PlayerRepository {
 	
 	private ArrayList<Player> players;
 	private int numberOfDefenders;
-	private int numberOfMidFielders;
+	private int numberOfMidFielders; 
 	private int numberOfForwards;
 	private int numberOfGoalKeepers;
 	
