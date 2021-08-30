@@ -1,4 +1,4 @@
-package PlayerRepositoryModule;
+package PlayerRepositoryModule;  // Mentor Comment: package names should be in lowercase letters. Usually company names web url is be included in package names. "com.hsbc.player.repositorymodule" could be an ideal name
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ public class PlayerRepository {
 	
 	private ArrayList<Player> players;
 	private int numberOfDefenders;
-	private int numberOfMidFielders;
+	private int numberOfMidFielders; 
 	private int numberOfForwards;
 	private int numberOfGoalKeepers;
 	
@@ -18,8 +18,8 @@ public class PlayerRepository {
 	
 	
 	
-	public void addPlayer(Player p) throws PlayerAlreadyExistsException {
-		for (Player storedPlayer : players) {
+	public void addPlayer(Player p) throws PlayerAlreadyExistsException { // Mentor Comment : instead of the parameter name as "p", it could be "player"
+		for (Player storedPlayer : players) { // Mentor Comment : You could have used this.players while refering to the member variable(though in this case it is not required)
 			if (storedPlayer.equals(p)) {
 				throw new PlayerAlreadyExistsException("This player already exists in the repository.");
 			}
@@ -32,9 +32,11 @@ public class PlayerRepository {
 		case "Midfielder": numberOfMidFielders++; break;
 		case "Forward": numberOfForwards++; break;
 		case "Goalkeeper": numberOfGoalKeepers++; break;
+				
+		// Mentor Commnet : default case?
 		}
 		
-		players.add(p);
+		players.add(p); // Mentor Comment: Same as mentioned in Line 22
 	}
 	
 	
